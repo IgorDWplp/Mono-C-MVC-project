@@ -57,3 +57,7 @@ C:\Users\BPC\Documents\GitHub\Mono\mono\obj\Debug\mono.csproj.CoreCompileInputs.
 C:\Users\BPC\Documents\GitHub\Mono\mono\obj\Debug\mono.csproj.CopyComplete
 C:\Users\BPC\Documents\GitHub\Mono\mono\obj\Debug\mono.dll
 C:\Users\BPC\Documents\GitHub\Mono\mono\obj\Debug\mono.pdb
+C:\Users\BPC\Documents\GitHub\Mono\mono\bin\EntityFramework.dll
+C:\Users\BPC\Documents\GitHub\Mono\mono\bin\EntityFramework.SqlServer.dll
+C:\Users\BPC\Documents\GitHub\Mono\mono\bin\EntityFramework.xml
+C:\Users\BPC\Documents\GitHub\Mono\mono\bin\EntityFramework.SqlServer.xml
