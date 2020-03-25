@@ -43,7 +43,7 @@ https://www.syncfusion.com/resources/techportal/ebooks
 ORMs
 
 SQL
- SQL Database Fundamentals - https://mva.microsoft.com/en-US/training-courses/sql-database-fundamentals-16944?l=w7qq6nAID_6805121157
+SQL Database Fundamentals - https://mva.microsoft.com/en-US/training-courses/sql-database-fundamentals-16944?l=w7qq6nAID_6805121157
 SQL Queries Succinctly - https://www.syncfusion.com/ebooks/sql_queries_succinctly
  
 
@@ -116,3 +116,19 @@ https://www.youtube.com/watch?v=Z7713GBhi4k
 https://www.youtube.com/watch?v=Z7713GBhi4k
 
 https://www.youtube.com/watch?v=kbH-rqMl8cE
+
+
+------------------------------------------------------------------------------------
+majne : 
+https://www.c-sharpcorner.com/article/implement-crud-operations-with-sorting-searching-and-paging-using-ef-core-in-as/
+
+https://www.c-sharpcorner.com/article/implement-crud-operations-with-sorting-searching-and-paging-using-ef-core-in-as/
+
+https://www.entityframeworktutorial.net/code-first/foreignkey-dataannotations-attribute-in-code-first.aspx
+
+https://www.entityframeworktutorial.net/entityframework6/dbcontext.aspx
+
+
+.NET core :
+
+  https://www.devart.com/dotconnect/oracle/docs/Tutorial_EFCore_NETCore.html
