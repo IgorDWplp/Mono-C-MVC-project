@@ -10,15 +10,20 @@ namespace ProjectMono.Controllers
 {
     public class HomeController : Controller
     {
+     
+
+        //MonoRepos db_Repos = new MonoRepos();
         public IActionResult Index()
         {
             return View();
         }
 
+
+
+        #region ne upotrebljava se
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
-
             return View();
         }
 
@@ -39,5 +44,6 @@ namespace ProjectMono.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        #endregion
     }
 }

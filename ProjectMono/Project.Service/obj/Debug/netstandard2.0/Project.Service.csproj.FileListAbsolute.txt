@@ -1,0 +1,8 @@
+C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\Project.Service\bin\Debug\netstandard2.0\Project.Service.deps.json
+C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\Project.Service\bin\Debug\netstandard2.0\Project.Service.dll
+C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\Project.Service\obj\Debug\netstandard2.0\Project.Service.csproj.CoreCompileInputs.cache
+C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\Project.Service\obj\Debug\netstandard2.0\Project.Service.AssemblyInfoInputs.cache
+C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\Project.Service\obj\Debug\netstandard2.0\Project.Service.AssemblyInfo.cs
+C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\Project.Service\bin\Debug\netstandard2.0\Project.Service.pdb
+C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\Project.Service\obj\Debug\netstandard2.0\Project.Service.dll
+C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\Project.Service\obj\Debug\netstandard2.0\Project.Service.pdb

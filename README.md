@@ -132,3 +132,45 @@ https://www.entityframeworktutorial.net/entityframework6/dbcontext.aspx
 .NET core :
 
   https://www.devart.com/dotconnect/oracle/docs/Tutorial_EFCore_NETCore.html
+
+  https://www.c-sharpcorner.com/article/understanding-entity-framework-core-and-code-first-migrations-in-ef-core/
+
+
+
+  .net core and EF
+
+  https://code-maze.com/net-core-web-development-part4/#context
+
+  https://code-maze.com/net-core-web-api-ef-core-code-first/
+
+
+
+  .net core offical
+
+  https://docs.microsoft.com/en-us/aspnet/core/data/ef-rp/intro?view=aspnetcore-3.1&tabs=visual-studio
+
+
+
+  https://www.youtube.com/watch?v=nN9jOORIFtc&list=PL6n9fhu94yhVkdrusLaQsfERmL_Jh4XmU&index=48&t=0s
+
+
+CLI
+
+  dotnet tool uninstall --global dotnet-ef
+
+followed by
+
+dotnet tool install --global dotnet-ef --version 2.1.0
+
+
+.net core CLI crossplaorm
+
+View > others > package manegr console
+
+commands 
+
+get-help about_entityframeworkcore - Provides entity framework core help
+Add-Migration - Adds a new migration
+Update-Database - Updates the database to a specified migration
+
+Please note : You can use get-help command with any of the above commands. For example get-help Add-Migration provides help for Add-Migration command.
