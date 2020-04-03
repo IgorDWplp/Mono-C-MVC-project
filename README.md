@@ -154,6 +154,11 @@ https://www.entityframeworktutorial.net/entityframework6/dbcontext.aspx
   https://www.youtube.com/watch?v=nN9jOORIFtc&list=PL6n9fhu94yhVkdrusLaQsfERmL_Jh4XmU&index=48&t=0s
 
 
+
+
+DI
+https://www.youtube.com/watch?v=EPv9-cHEmQw
+
 CLI
 
   dotnet tool uninstall --global dotnet-ef

@@ -9,7 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using ProjectMono.Models;
+using Project.Service.Models;
+
 
 namespace ProjectMono
 {
@@ -25,16 +26,9 @@ namespace ProjectMono
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //services.Configure<CookiePolicyOptions>(options =>
-            //{
-            //    // This lambda determines whether user consent for non-essential cookies is needed for a given request.
-            //    options.CheckConsentNeeded = context => true;
-            //    options.MinimumSameSitePolicy = SameSiteMode.None;
-            //});
-            services.AddDbContextPool<MonoContext>(opttions => opttions.UseSqlServer(Configuration.GetConnectionString("MyConnection")));
-
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-
+            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyConnection"), b => b.MigrationsAssembly("ProjectMono")));
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            #region conn strings 
             //services.AddDbContext<MonoContext>(options =>
             //{
             //    options.UseSqlServer(Configuration.GetConnectionString("MyConnection"));
@@ -42,24 +36,23 @@ namespace ProjectMono
 
             //  services.AddDbContext<MonoContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:MyConnection"]));
             // services.AddControllers();
-
+            #endregion
+            services.AddScoped<IMonoRepositry, SqlRepositry>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Home/Error");
-            }
+            //if (env.IsDevelopment())
+            //{
+            //    app.UseDeveloperExceptionPage();
+            //}
+            //else
+            //{
+            //    app.UseExceptionHandler("/Home/Error");
+            //}
 
             app.UseStaticFiles();
-          //  app.UseCookiePolicy();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
