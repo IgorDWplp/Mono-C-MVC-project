@@ -1,0 +1,40 @@
+﻿@model Project.Service.VehicleMake
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="head">
+    <h2>Details</h2>
+</div>
+
+<dl class="row">
+    <dt class="col-sm-1">
+        @Html.DisplayNameFor(model => model.Id)
+    </dt>
+    <dd class="col-sm-1">
+        @Html.DisplayFor(model => model.Id)
+    </dd>
+
+
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.Name)
+    </dt>
+    <dd class="col-sm-3">
+        @Html.DisplayFor(model => model.Name)
+    </dd>
+
+    <dt class="col-sm-3">
+        @Html.DisplayNameFor(model => model.Abrv)
+    </dt>
+    <dd class="col-sm-3">
+        @Html.DisplayFor(model => model.Abrv)
+    </dd>
+
+</dl>
+
+<section>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Index">Back to List</a>
+    </div>
+</section>

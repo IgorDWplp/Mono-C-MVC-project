@@ -179,3 +179,7 @@ Add-Migration - Adds a new migration
 Update-Database - Updates the database to a specified migration
 
 Please note : You can use get-help command with any of the above commands. For example get-help Add-Migration provides help for Add-Migration command.
+
+
+Automapper
+https://www.youtube.com/watch?v=GCbmUpyzkQw

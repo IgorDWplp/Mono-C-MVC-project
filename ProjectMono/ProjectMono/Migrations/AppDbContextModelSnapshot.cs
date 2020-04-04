@@ -38,13 +38,31 @@ namespace ProjectMono.Migrations
                         {
                             Id = 1,
                             Abrv = "bmw",
-                            Name = "BMW"
+                            Name = "BMW Group"
                         },
                         new
                         {
                             Id = 2,
+                            Abrv = "Mercedes",
+                            Name = "Mercedes-Benz company"
+                        },
+                        new
+                        {
+                            Id = 3,
                             Abrv = "toyota",
-                            Name = "Toyota"
+                            Name = "Toyota motor"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Abrv = "mazda",
+                            Name = "Mazda motor"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Abrv = "lexus",
+                            Name = "Lexus - Rekusasu"
                         });
                 });
 
@@ -56,22 +74,24 @@ namespace ProjectMono.Migrations
 
                     b.Property<string>("Abrv");
 
-                    b.Property<int?>("MakeIdId");
+                    b.Property<int>("MakeId");
 
                     b.Property<string>("Name");
 
+                    b.Property<int?>("VehicleMakeId");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("MakeIdId");
+                    b.HasIndex("VehicleMakeId");
 
-                    b.ToTable("Vehicle");
+                    b.ToTable("VehicleModel");
                 });
 
             modelBuilder.Entity("Project.Service.VehicleModel", b =>
                 {
-                    b.HasOne("Project.Service.VehicleMake", "MakeId")
+                    b.HasOne("Project.Service.VehicleMake")
                         .WithMany("vehicleModels")
-                        .HasForeignKey("MakeIdId");
+                        .HasForeignKey("VehicleMakeId");
                 });
 #pragma warning restore 612, 618
         }

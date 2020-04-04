@@ -1,0 +1,35 @@
+﻿@model Project.Service.VehicleModel
+
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>VehicleModel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Abrv)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Abrv)
+        </dd>
+
+
+    </dl>
+    <select asp-for="Id" class="form-control" asp-items="@(new SelectList(ViewBag.List, "Id", "Name"))"></select>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
