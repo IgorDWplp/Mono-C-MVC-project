@@ -24,39 +24,39 @@ namespace ProjectMono.Controllers
             _context = context;
             _mapper = mapper;
         }
-        public async Task<IActionResult> Index(string SortOrder, string SearchString, string CurrentFilter, int? PageNum)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
         {
             #region
-            ViewData["NameSort"] = String.IsNullOrEmpty(SortOrder) ? "name_desc" : "";
-            ViewData["CurrentFilter"] = SearchString;
-            ViewData["CurrentSort"] = SortOrder;
-            if (SearchString != null)
+            ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["CurrentFilter"] = searchString;
+            ViewData["CurrentSort"] = sortOrder;
+            if (searchString != null)
             {
-                PageNum = 1;
+                pageNumber = 1;
             }
             else
             {
-                SearchString = CurrentFilter;
+                searchString = currentFilter;
             }
-            ViewData["CurrentFilter"] = SearchString;
+            ViewData["CurrentFilter"] = searchString;
 
             var _vehicleMake = from v in _context.vehicleMakes
                                select v;
 
-            if (!string.IsNullOrEmpty(SearchString))
+            if (!string.IsNullOrEmpty(searchString))
             {
-                _vehicleMake = _vehicleMake.Where(x => x.Name.Contains(SearchString) || x.Abrv.Contains(SearchString));
+                _vehicleMake = _vehicleMake.Where(x => x.Name.Contains(searchString) || x.Abrv.Contains(searchString));
             }
 
-            switch (SortOrder)
+            switch (sortOrder)
             {
                 case "name_desc":
                     _vehicleMake = _vehicleMake.OrderBy(x => x.Name);
                     break;
             }
 
-            int pageSize = 3;
-            return View(await PaginatedList<VehicleMake>.CreateAsync(_vehicleMake.AsNoTracking(), PageNum ?? 1, pageSize));
+            int pageSize = 5;
+            return View(await Models.PaginatedList<VehicleMake>.CreateAsync(_vehicleMake.AsNoTracking(), pageNumber ?? 1, pageSize));
             #endregion
 
 
@@ -118,7 +118,7 @@ namespace ProjectMono.Controllers
                     {
                         return NotFound();
                     }
-               
+
                 }
                 return RedirectToAction(nameof(Index));
             }
@@ -149,7 +149,7 @@ namespace ProjectMono.Controllers
         public async Task<IActionResult> Delete(int id)
         {
             VehicleMake vehicle = _context.vehicleMakes.Find(id);
-            if(vehicle != null)
+            if (vehicle != null)
             {
                 _context.vehicleMakes.Remove(vehicle);
                 _context.SaveChanges();

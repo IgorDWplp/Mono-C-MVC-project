@@ -1,35 +1,42 @@
 ﻿@model Project.Service.VehicleModel
-
-
 @{
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    IEnumerable<Project.Service.VehicleMake> vehicleMakes = ViewBag.VehicleMakes as IEnumerable<Project.Service.VehicleMake>;
 }
-
-<h2>Details</h2>
-
-<div>
-    <h4>VehicleModel</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt>
-            @Html.DisplayNameFor(model => model.Abrv)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Abrv)
-        </dd>
-
-
-    </dl>
-    <select asp-for="Id" class="form-control" asp-items="@(new SelectList(ViewBag.List, "Id", "Name"))"></select>
+<div class="head">
+    <h2>Details -   @Html.DisplayFor(model => model.Name)</h2>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
-    <a asp-action="Index">Back to List</a>
-</div>
+
+<section class="row">
+    <div class="col-md-8 col-md-offset-2">
+        <dl class="dl-horizontal">
+            <dt style="padding-bottom:20px;">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+
+            <dt style="padding-bottom:20px;">
+                @Html.DisplayNameFor(model => model.Abrv)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.Abrv)
+            </dd>
+            <dt style="padding-bottom:20px;">
+                Make by
+            </dt>
+            <dd>
+                @{var makeName = vehicleMakes.Where(s => s.Id == Model.MakeId).SingleOrDefault().Name;}
+                @makeName
+            </dd>
+
+        </dl>
+
+    </div>
+    </section>
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+        <a asp-action="Index">Nazad na listu</a>
+    </div>

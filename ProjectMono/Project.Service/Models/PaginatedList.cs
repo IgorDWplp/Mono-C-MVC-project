@@ -5,11 +5,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace ProjectMono.Models
+namespace Project.Service.Models
 {
     public class PaginatedList<T> : List<T>
     {
-
         public int PageIndex { get; private set; }
         public int TotalPages { get; private set; }
 
