@@ -8,6 +8,8 @@
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="6.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" />
+    <PackageReference Include="ReflectionIT.Mvc.Paging" Version="2.1.0" />
+    <PackageReference Include="X.PagedList.Mvc.Core" Version="8.0.5" />
   </ItemGroup>
 
   <ItemGroup>

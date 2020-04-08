@@ -8,17 +8,20 @@ using ProjectMono.Models;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Project.Service;
+using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace ProjectMono.Controllers
 {
     public class HomeController : Controller
     {
-
         /// <summary>
-        /// Construcotr injection
+        /// Constructor injection
         /// </summary>
         private readonly AppDbContext _context;
+        // private readonly IMonoRepositry _context;
         private readonly IMapper _mapper;
+
         public HomeController(AppDbContext context, IMapper mapper)
         {
             _context = context;
@@ -28,6 +31,7 @@ namespace ProjectMono.Controllers
         {
             #region
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["AbrvSortParm"] = String.IsNullOrEmpty(sortOrder) ? "abrv_desc" : "";
             ViewData["CurrentFilter"] = searchString;
             ViewData["CurrentSort"] = sortOrder;
             if (searchString != null)
@@ -40,6 +44,7 @@ namespace ProjectMono.Controllers
             }
             ViewData["CurrentFilter"] = searchString;
 
+            //no matter what, this code is fill a container
             var _vehicleMake = from v in _context.vehicleMakes
                                select v;
 
@@ -53,12 +58,16 @@ namespace ProjectMono.Controllers
                 case "name_desc":
                     _vehicleMake = _vehicleMake.OrderBy(x => x.Name);
                     break;
+                case "abrv_desc":
+                    _vehicleMake = _vehicleMake.OrderBy(x => x.Abrv);
+                    break;
             }
 
             int pageSize = 5;
+            var mappetList = _mapper.Map<List<VehicleMakeDTO>>(_vehicleMake);
+
             return View(await Models.PaginatedList<VehicleMake>.CreateAsync(_vehicleMake.AsNoTracking(), pageNumber ?? 1, pageSize));
             #endregion
-
 
 
         }
@@ -128,9 +137,9 @@ namespace ProjectMono.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
-            return View();
+            return  View();
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -146,7 +155,7 @@ namespace ProjectMono.Controllers
             return View(vehicleMake);
         }
 
-        public async Task<IActionResult> Delete(int id)
+        public IActionResult Delete(int id)
         {
             VehicleMake vehicle = _context.vehicleMakes.Find(id);
             if (vehicle != null)
@@ -180,7 +189,6 @@ namespace ProjectMono.Controllers
         #endregion
 
 
-
         /// <summary>
         /// check if exist, koristim za update
         /// </summary>
@@ -189,6 +197,12 @@ namespace ProjectMono.Controllers
         private bool VehicleMakeExists(int id)
         {
             return _context.vehicleMakes.Any(e => e.Id == id);
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

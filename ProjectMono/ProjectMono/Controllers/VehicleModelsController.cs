@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Project.Service;
 using Project.Service.Models;
+using ProjectMono.Models;
 //using ProjectMono.Models;
 
 namespace ProjectMono.Controllers
@@ -57,7 +59,7 @@ namespace ProjectMono.Controllers
             }
             ViewBag.VehicleMakes = _context.vehicleMakes.ToList();
             int pageSize = 5;
-            return View(await PaginatedList<VehicleModel>.CreateAsync(_vehicleModel.AsNoTracking(), pageNumber ?? 1, pageSize));
+            return View(await Project.Service.Models.PaginatedList<VehicleModel>.CreateAsync(_vehicleModel.AsNoTracking(), pageNumber ?? 1, pageSize));
             #endregion
         }
 
@@ -207,6 +209,11 @@ namespace ProjectMono.Controllers
         private bool VehicleModelExists(int id)
         {
             return _context.vehicleModels.Any(e => e.Id == id);
+        }
+
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
 

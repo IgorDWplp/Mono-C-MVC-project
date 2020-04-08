@@ -16,7 +16,6 @@ namespace Project.Service.Models
                 new VehicleMake() { Id = 4, Name = "Mazda motor", Abrv = "mazda" },
                 new VehicleMake() { Id = 5, Name = "Lexus - Rekusasu", Abrv = "lexus" }
                 );
-
             #region import-migration with enums 
             //modelBuilder.Entity<VehicleModel>().HasData(
             //   new VehicleModel() { Id =1, Name = "Mazda CX-5 2020", Abrv="CX-5", MakeId=Make_ID.MAZDA},

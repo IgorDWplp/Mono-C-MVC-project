@@ -183,3 +183,15 @@ Please note : You can use get-help command with any of the above commands. For e
 
 Automapper
 https://www.youtube.com/watch?v=GCbmUpyzkQw
+
+https://www.youtube.com/watch?v=5WP36DIwdlI
+
+//sve
+https://www.youtube.com/watch?v=xD-33-6GLYo
+
+//instalirao :
+
+https://www.nuget.org/packages/X.PagedList.Mvc.Core/
+https://www.youtube.com/watch?v=LpT0KL2bOAM
+
+https://www.youtube.com/watch?v=LpT0KL2bOAM

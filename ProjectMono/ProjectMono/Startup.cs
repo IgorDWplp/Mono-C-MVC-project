@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Project.Service.Models;
-
+using ReflectionIT.Mvc.Paging;
 
 namespace ProjectMono
 {
@@ -38,8 +38,9 @@ namespace ProjectMono
             //  services.AddDbContext<MonoContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:MyConnection"]));
             // services.AddControllers();
             #endregion
-            services.AddScoped<IMonoRepositry, SqlRepositry>();
+            services.AddScoped<IMonoRepositry, SqlRepository>();
             services.AddAutoMapper(typeof(Startup));
+            services.AddPaging();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,10 +49,11 @@ namespace ProjectMono
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("Home/Error/");
             }
 
             app.UseStaticFiles();

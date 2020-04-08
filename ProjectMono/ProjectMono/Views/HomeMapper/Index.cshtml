@@ -1,0 +1,64 @@
+﻿@model IEnumerable<ProjectMono.VehicleMakeDTO>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core.Common;
+
+    @{
+        ViewData["Title"] = "Index";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+    }
+
+<div class="head">
+    <h2>Index | AutoMapper</h2>
+</div>
+<div class="controls">
+    <a asp-action="Create" class="btn btn-success btn-block">Create New Vehicle-Make</a>
+    <form asp-action="Index" method="get">
+        <div class="form-actions no-color">
+            <p>
+                 Petraži po imenu: <input type="text" name="searchString" value="@ViewData["CurrentFilter"]" />
+                <input type="submit" value="Search" class="btn btn-default" /> |
+                <a asp-action="Index">Vrati se na Listu</a>
+            </p>
+        </div>
+    </form>
+</div>
+<section class="row">
+    <div class="col-md-12">
+        <table class="table">
+            <thead class="thead-dark">
+            <thead>
+                <tr>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["NameSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Name</a>
+                    </th>
+                    <th>
+                        <a asp-action="Index" asp-route-sortOrder="@ViewData["AbrvSortParm"]" asp-route-currentFilter="@ViewData["CurrentFilter"]">Abrv</a>
+                    </th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Abrv)
+                        </td>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                        </td>
+                    </tr>
+                }
+                <tr>
+                    <td colspan="4" align="center"></td>@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", "HomeMapper", new { page = page }))
+                </tr>
+            </tbody>
+        </table>
+        </div>
+    </section>
