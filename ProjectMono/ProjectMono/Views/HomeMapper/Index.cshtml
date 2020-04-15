@@ -41,19 +41,26 @@
             <tbody>
                 @foreach (var item in Model)
                 {
-                    <tr>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Name)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.Abrv)
-                        </td>
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                        </td>
-                    </tr>
+                    @if (Model != null)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Name)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Abrv)
+                            </td>
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.Id">Delete</a> |
+                            </td>
+                        </tr>
+                    }
+                    else
+                    {
+                        <h1>Baza je prazna, molim pokrenite Model Builder!</h1>
+                    }
                 }
                 <tr>
                     <td colspan="4" align="center"></td>@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", "HomeMapper", new { page = page }))
@@ -62,3 +69,6 @@
         </table>
         </div>
     </section>
+
+
+
