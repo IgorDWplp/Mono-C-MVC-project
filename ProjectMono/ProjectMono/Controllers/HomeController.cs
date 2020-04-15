@@ -10,6 +10,7 @@ using AutoMapper.QueryableExtensions;
 using Project.Service;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Data.SqlClient;
 
 namespace ProjectMono.Controllers
 {
@@ -34,6 +35,7 @@ namespace ProjectMono.Controllers
             ViewData["AbrvSortParm"] = String.IsNullOrEmpty(sortOrder) ? "abrv_desc" : "";
             ViewData["CurrentFilter"] = searchString;
             ViewData["CurrentSort"] = sortOrder;
+         
             if (searchString != null)
             {
                 pageNumber = 1;
@@ -160,10 +162,14 @@ namespace ProjectMono.Controllers
             VehicleMake vehicle = _context.vehicleMakes.Find(id);
             if (vehicle != null)
             {
+                var commandText = "delete from VehicleModel where MakeId = @id";
+                var vehicle_model = new SqlParameter("@id", id);
+                _context.Database.ExecuteSqlCommand(commandText, vehicle_model);
                 _context.vehicleMakes.Remove(vehicle);
                 _context.SaveChanges();
             }
-            return RedirectToAction("Index");
+            //return RedirectToAction("Index/");
+            return View();
         }
 
         #region ne upotrebljava se

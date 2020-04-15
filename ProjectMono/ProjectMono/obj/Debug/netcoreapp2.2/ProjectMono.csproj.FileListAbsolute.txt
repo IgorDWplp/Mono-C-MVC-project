@@ -42,3 +42,4 @@ C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\ProjectMono\obj\Debug\netcoreap
 C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\ProjectMono\obj\Debug\netcoreapp2.2\Razor\Views\HomeMapper\Edit.g.cshtml.cs
 C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\ProjectMono\obj\Debug\netcoreapp2.2\Razor\Views\HomeMapper\Create.g.cshtml.cs
 C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\ProjectMono\obj\Debug\netcoreapp2.2\Razor\Views\Error\HandleErrorCode.g.cshtml.cs
+C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\ProjectMono\obj\Debug\netcoreapp2.2\Razor\Views\Home\Delete.g.cshtml.cs

@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -45,8 +47,15 @@ namespace Project.Service.Models
         public async Task<VehicleMake> Delete(int id)
         {
             VehicleMake vehicle = await context.vehicleMakes.FindAsync(id);
-            if(vehicle != null)
+            //var vehicle_fk = context.vehicleModels.Where(m => m.MakeId == id).ToList();
+
+            if (vehicle != null)
             {
+                //context.Remove(vehicle_fk);
+                var commandText = "delete from VehicleModel where MakeId = @id";
+                var vehicle_model = new SqlParameter("@id", id);
+                context.Database.ExecuteSqlCommand(commandText, vehicle_model);
+
                 context.vehicleMakes.Remove(vehicle);
                 await context.SaveChangesAsync();
             }

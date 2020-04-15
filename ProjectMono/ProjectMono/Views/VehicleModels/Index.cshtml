@@ -54,8 +54,8 @@
                         </td>
 
                         <td>
-                            @{var makeName = vehicleMakes.Where(s => s.Id == item.MakeId).SingleOrDefault().Name;}
-                            <a href="@item.MakeId" class="btn btn-info btn-xs">@makeName</a>                         
+                            @{var makeName = vehicleMakes.Where(s => s.Id == item.MakeId).SingleOrDefault().Name; }
+                            <a href="@item.MakeId" class="btn btn-info btn-xs">@makeName</a>
                         </td>
 
                         <td>
