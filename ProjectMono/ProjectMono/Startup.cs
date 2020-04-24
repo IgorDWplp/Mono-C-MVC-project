@@ -27,7 +27,7 @@ namespace ProjectMono
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextPool<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyConnection"), b => b.MigrationsAssembly("ProjectMono")));
+            services.AddDbContextPool<Project.Service.Models.DbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("MyConnection"), b => b.MigrationsAssembly("ProjectMono")));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
             #region conn strings 
             //services.AddDbContext<MonoContext>(options =>
@@ -38,7 +38,8 @@ namespace ProjectMono
             //  services.AddDbContext<MonoContext>(opts => opts.UseSqlServer(Configuration["ConnectionString:MyConnection"]));
             // services.AddControllers();
             #endregion
-            services.AddScoped<IMonoRepositry, SqlRepository>();
+            services.AddScoped<IVehicleMakeRepository, VMakeRepository>();
+            services.AddScoped<IVehicleModelRepository, VModelRepository>();
             services.AddAutoMapper(typeof(Startup));
             services.AddPaging();
         }

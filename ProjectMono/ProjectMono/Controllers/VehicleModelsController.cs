@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -10,57 +11,65 @@ using Microsoft.EntityFrameworkCore;
 using Project.Service;
 using Project.Service.Models;
 using ProjectMono.Models;
+using X.PagedList;
 //using ProjectMono.Models;
 
 namespace ProjectMono.Controllers
 {
     public class VehicleModelsController : Controller
     {
-        /// <summary>
-        ///  Construcotr injection
-        /// </summary>
-        private readonly AppDbContext _context;
-        public VehicleModelsController(AppDbContext context)
+        private readonly Project.Service.Models.IVehicleModelRepository context;
+        //private readonly IVehicleModelRepository _contextM;
+        private readonly IMapper _mapper;
+        public VehicleModelsController(IVehicleModelRepository context, IMapper mapper)
         {
-            _context = context;
+            this.context = context;
+            _mapper = mapper;
+
         }
 
         // GET: VehicleModels
-        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? pageNumber)
+        public async Task<IActionResult> Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
-            #region
+         
             ViewData["NameSortParm"] = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewData["AbrvSortParm"] = String.IsNullOrEmpty(sortOrder) ? "abrv_desc" : "";
             ViewData["CurrentFilter"] = searchString;
             ViewData["CurrentSort"] = sortOrder;
             if (searchString != null)
             {
-                pageNumber = 1;
+                page = 1;
             }
             else
             {
                 searchString = currentFilter;
             }
-
+            var pageNumber = page ?? 1;
             ViewData["CurrentFilter"] = searchString;
 
-            var _vehicleModel = from v in _context.vehicleModels
-                                select v;
+            var vehicleModel = context.GetAllVehicleModels();
+            var mapperModel = _mapper.Map<List<VehicleModelDTO>>(vehicleModel);
+            var mapperForView = _mapper.Map<List<VehicleModelDTO>>(vehicleModel);
+
 
             if (!String.IsNullOrEmpty(searchString))
             {
-                _vehicleModel = _vehicleModel.Where(x => x.Name.Contains(searchString) || x.Abrv.Contains(searchString));
+                var mapperForViewSearch = mapperModel.Where(x => x.Name.Contains(searchString) || x.Abrv.Contains(searchString));
+                return View(mapperForViewSearch.ToList().ToPagedList(pageNumber, 5));
             }
 
             switch (sortOrder)
             {
                 case "name_desc":
-                    _vehicleModel = _vehicleModel.OrderBy(x => x.Name);
+                    mapperForView = mapperForView.OrderBy(x => x.Name).ToList();
+                    break;
+                case "abrv_desc":
+                    mapperForView = mapperForView.OrderBy(x => x.Abrv).ToList();
                     break;
             }
-            ViewBag.VehicleMakes = _context.vehicleMakes.ToList();
-            int pageSize = 5;
-            return View(await Project.Service.Models.PaginatedList<VehicleModel>.CreateAsync(_vehicleModel.AsNoTracking(), pageNumber ?? 1, pageSize));
-            #endregion
+            ViewBag.VehicleMakes = context.GetVehicleMakes();
+            return View(await mapperForView.ToList().ToPagedListAsync(pageNumber, 5));
+          
         }
 
         // GET: VehicleModels/Details/5
@@ -70,41 +79,26 @@ namespace ProjectMono.Controllers
             {
                 return NotFound();
             }
-
-            var vehicleModel = await _context.vehicleModels.FirstOrDefaultAsync(m => m.Id == id);
+            int ID = id.GetValueOrDefault();
+            var vehicleModel = await context.GetModel(ID);
             if (vehicleModel == null)
             {
                 return NotFound();
             }
-            ViewBag.VehicleMakes = _context.vehicleMakes.ToList();
-
+            ViewBag.VehicleMakes = context.GetVehicleMakes();
             return View(vehicleModel);
         }
 
         // GET: VehicleModels/Create
         public IActionResult Create()
         {
-            var CarMakeModel = (from model in  _context.vehicleMakes select model).ToList();
+            var CarMakeModel = context.GetVehicleMakes().ToList();
             CarMakeModel.Insert(0, new VehicleMake { Id = 0, Name = "Select" });
             ViewBag.List = CarMakeModel;
             return View();
         }
 
-        // POST: VehicleModels/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Create([Bind("Id,Name,Abrv")] VehicleModel vehicleModel)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        _context.Add(vehicleModel);
-        //        await _context.SaveChangesAsync();
-        //        return RedirectToAction(nameof(Index));
-        //    }
-        //    return View(vehicleModel);
-        //}
+        //other way of create not the same as others just to show!
         [HttpGet()]
         public async Task<ActionResult> CreateModel(string name, string abrv, int MakeId)
         {
@@ -112,43 +106,36 @@ namespace ProjectMono.Controllers
             vehicleModel.Name = name;
             vehicleModel.Abrv = abrv;
             vehicleModel.MakeId = MakeId;
-
-                _context.Add(vehicleModel);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            
+           await context.AddNew(vehicleModel);
+           return RedirectToAction(nameof(Index));
         }
 
         // GET: VehicleModels/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+         
             if (id == null)
             {
                 return NotFound();
             }
-
-            var vehicleModel = await _context.vehicleModels.FindAsync(id);
+            int ID = id.GetValueOrDefault();
+            var vehicleModel = await context.GetModel(ID);
             if (vehicleModel == null)
             {
                 return NotFound();
             }
 
-            var CarMakeModel = (from model in _context.vehicleMakes select model).ToList();
+            //needs for listing car makes
+            var CarMakeModel = context.GetVehicleMakes().ToList();
             CarMakeModel.Insert(0, new VehicleMake { Id = 0, Name = "Select" });
             ViewBag.List = CarMakeModel;
-
             return View(vehicleModel);
         }
 
-        // POST: VehicleModels/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Abrv")] VehicleModel vehicleModel)
         public async Task<IActionResult> Edit(int id, string name, string abrv, int makeId, VehicleModel vehicleModel)
         {
-            //VehicleModel vehicleModel = new VehicleModel();
             if (id != vehicleModel.Id)
             {
                 return NotFound();
@@ -158,8 +145,7 @@ namespace ProjectMono.Controllers
             {
                 try
                 {
-                    _context.Update(vehicleModel);
-                    await _context.SaveChangesAsync();
+                    await context.UpdateVehicleModel(vehicleModel);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -169,7 +155,7 @@ namespace ProjectMono.Controllers
                     }
                     else
                     {
-                        throw;
+                        return Error();
                     }
                 }
                 return RedirectToAction(nameof(Index));
@@ -178,20 +164,17 @@ namespace ProjectMono.Controllers
         }
 
         // GET: VehicleModels/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(int id)
         {
-            if (id == null)
+            if (id == 0)
             {
                 return NotFound();
             }
-
-            var vehicleModel = await _context.vehicleModels
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var vehicleModel = await context.GetModel(id);
             if (vehicleModel == null)
             {
                 return NotFound();
             }
-
             return View(vehicleModel);
         }
 
@@ -200,15 +183,19 @@ namespace ProjectMono.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var vehicleModel = await _context.vehicleModels.FindAsync(id);
-            _context.vehicleModels.Remove(vehicleModel);
-            await _context.SaveChangesAsync();
+
+            var vehicleModel = await context.GetModel(id);
+            await context.Delete(id);
             return RedirectToAction(nameof(Index));
         }
 
         private bool VehicleModelExists(int id)
         {
-            return _context.vehicleModels.Any(e => e.Id == id);
+            if(context.GetModel(id) != null)
+            {
+                return true;
+            }
+            return false;
         }
 
         public IActionResult Error()
@@ -216,16 +203,7 @@ namespace ProjectMono.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-
-        #region partial view
-        public IActionResult DropDownVehicleMake()
-        {
-            var model = from u in _context.vehicleMakes
-                        orderby u.Name
-                        select u;
-            return View(model);
-        }
     }
-    #endregion
+ 
 }
 

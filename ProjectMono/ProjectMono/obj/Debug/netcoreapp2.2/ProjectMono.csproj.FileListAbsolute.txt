@@ -26,7 +26,6 @@ C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\ProjectMono\obj\Debug\netcoreap
 C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\ProjectMono\obj\Debug\netcoreapp2.2\Razor\Views\VehicleModels\Create.g.cshtml.cs
 C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\ProjectMono\obj\Debug\netcoreapp2.2\Razor\Views\VehicleModels\Delete.g.cshtml.cs
 C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\ProjectMono\obj\Debug\netcoreapp2.2\Razor\Views\VehicleModels\Details.g.cshtml.cs
-C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\ProjectMono\obj\Debug\netcoreapp2.2\Razor\Views\VehicleModels\DropDownVehicleMake.g.cshtml.cs
 C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\ProjectMono\obj\Debug\netcoreapp2.2\Razor\Views\VehicleModels\Edit.g.cshtml.cs
 C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\ProjectMono\obj\Debug\netcoreapp2.2\Razor\Views\VehicleModels\Index.g.cshtml.cs
 C:\Users\IGZYY\Documents\GitHub\Mono\ProjectMono\ProjectMono\obj\Debug\netcoreapp2.2\Razor\Views\_ViewImports.g.cshtml.cs

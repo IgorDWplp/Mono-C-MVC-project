@@ -16,15 +16,14 @@ namespace ProjectMono.Controllers
 {
     public class HomeMapperController : Controller
     {
-        /// <summary>
-        /// Constructor injection
-        /// </summary>
-        private readonly IMonoRepositry _context;
-        private readonly IMapper _mapper;
-        public HomeMapperController(IMonoRepositry context, IMapper mapper)
+       
+        // Constructor injection
+        private readonly IVehicleMakeRepository context;
+        private readonly IMapper mapper;
+        public HomeMapperController(IVehicleMakeRepository context, IMapper mapper)
         {
-            _context = context;
-            _mapper = mapper;
+            this.context = context;
+            this.mapper = mapper;
         }
         public  IActionResult Index(string sortOrder, string searchString, string currentFilter, int? page)
         {
@@ -44,9 +43,9 @@ namespace ProjectMono.Controllers
             var pageNumber = page ?? 1;
 
             //no matter what, this code is fill a container
-            var model = _context.GetAllVehicleMakes();
-            var mapper_model = _mapper.Map<List<VehicleMakeDTO>>(model);
-            var mapperForView = _mapper.Map<List<VehicleMakeDTO>>(model);
+            var model = context.GetAllVehicleMakes();
+            var mapper_model = mapper.Map<List<VehicleMakeDTO>>(model);
+            var mapperForView = mapper.Map<List<VehicleMakeDTO>>(model);
 
             //in search case 
             if (!string.IsNullOrEmpty(searchString))
@@ -75,7 +74,7 @@ namespace ProjectMono.Controllers
             {
                 return NotFound();
             }
-            var vehicleMake = await _context.GetVehicle(ID);
+            var vehicleMake = await context.GetVehicle(ID);
             if (vehicleMake == null)
             {
                 return NotFound();
@@ -91,7 +90,7 @@ namespace ProjectMono.Controllers
             {
                 return NotFound();
             }
-            var vehicleMake = await _context.GetVehicle(ID);
+            var vehicleMake = await context.GetVehicle(ID);
             if(vehicleMake == null)
             {
                 return NotFound();
@@ -113,7 +112,7 @@ namespace ProjectMono.Controllers
             {
                 try
                 {
-                   await _context.UpdateVehicleMake(vehicle);
+                   await context.UpdateVehicleMake(vehicle);
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -138,7 +137,7 @@ namespace ProjectMono.Controllers
         {
             if (ModelState.IsValid)
             {
-                await _context.AddNew(vehicleMake);
+                await context.AddNew(vehicleMake);
                 return RedirectToAction(nameof(Index));
             }
             return View(vehicleMake);
@@ -146,7 +145,7 @@ namespace ProjectMono.Controllers
 
         public async Task<IActionResult> Delete(int id)
         {
-            await _context.Delete(id);
+            await context.Delete(id);
             return RedirectToAction("Index");
         }
 

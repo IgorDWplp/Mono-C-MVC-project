@@ -11,6 +11,7 @@ namespace ProjectMono.Models
         {
             CreateMap<VehicleMake, VehicleMakeDTO>();
             CreateMap<VehicleModel, VehicleModelDTO>();
+            CreateMap<VehicleModel, VehicleModelDTO>(MemberList.Source).ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id));
             CreateMap<VehicleModel, VehicleModelDTO>().ForMember(d => d.Id, opt => opt.MapFrom(src => src.Id));
         }
     }

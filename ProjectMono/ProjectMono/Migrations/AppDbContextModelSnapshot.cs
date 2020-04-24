@@ -8,7 +8,7 @@ using Project.Service.Models;
 
 namespace ProjectMono.Migrations
 {
-    [DbContext(typeof(AppDbContext))]
+    [DbContext(typeof(Project.Service.Models.DbContext))]
     partial class AppDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

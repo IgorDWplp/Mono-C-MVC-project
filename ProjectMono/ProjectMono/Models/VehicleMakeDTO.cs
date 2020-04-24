@@ -11,8 +11,5 @@ namespace ProjectMono
 
         public ICollection<VehicleModelDTO> vehicleModels { get; set; }
 
-
-
-
     }
 }

@@ -1,13 +1,14 @@
 ﻿@*@model IEnumerable<Project.Service.VehicleModel>*@
-@model Project.Service.Models.PaginatedList<Project.Service.VehicleModel>
+@*@model Project.Service.Models.PaginatedList<Project.Service.VehicleModel>*@
+@model IEnumerable<ProjectMono.VehicleModelDTO>
+@using X.PagedList.Mvc.Core;
+@using X.PagedList;
+@using X.PagedList.Mvc.Core.Common;
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
     IEnumerable<Project.Service.VehicleMake> vehicleMakes = ViewBag.VehicleMakes as IEnumerable<Project.Service.VehicleMake>;
-
- 
-
 }
 
 <div class="head">
@@ -48,50 +49,52 @@
                 @foreach (var item in Model)
                 {
 
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Name)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Abrv)
-                    </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Abrv)
+                        </td>
 
-                    <td>
-                        @{var makeName = vehicleMakes.Where(s => s.Id == item.MakeId).SingleOrDefault().Name;
-                        }
-                        <a href="@item.MakeId" class="btn btn-info btn-xs">@makeName</a>
-                    </td>
+                        @*<td>
+                    @{var makeName = vehicleMakes.Where(s => s.Id == item.MakeId).SingleOrDefault().Name; }
+                    <a href="@item.MakeId" class="btn btn-info btn-xs">@makeName</a>
+                </td>*@
 
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a> |
-                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-default btn-sm">Details</a> |
-                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
-                    </td>
-                </tr>
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-primary btn-sm">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-default btn-sm">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
 
                 }
+                <tr>
+                    <td colspan="4" align="center"></td>@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", "VehicleModels", new { page = page }))
+                </tr>
             </tbody>
         </table>
     </div>
 </section>
 
 <section>
-    @{
+    @*@{
         var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
         var nextDisabled = !Model.HasNextPage ? "disabled" : "";
     }
     <a asp-action="Index"
        asp-route-sortOrder="@ViewData["CurrentSort"]"
-       asp-route-pageNumber="@(Model.PageIndex - 1)"
+       asp-route-page="@(Model.PageIndex - 1)"
        asp-route-currentFilter="@ViewData["CurrentFilter"]"
        class="btn btn-default @prevDisabled">
         Previous
     </a>
     <a asp-action="Index"
        asp-route-sortOrder="@ViewData["CurrentSort"]"
-       asp-route-pageNumber="@(Model.PageIndex + 1)"
+       asp-route-page="@(Model.PageIndex + 1)"
        asp-route-currentFilter="@ViewData["CurrentFilter"]"
        class="btn btn-default @nextDisabled">
         Next
-    </a>
+    </a>*@
 </section>

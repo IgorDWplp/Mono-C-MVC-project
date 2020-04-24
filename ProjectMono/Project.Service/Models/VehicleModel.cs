@@ -12,16 +12,12 @@ namespace Project.Service
     public class VehicleModel
     {
         public int Id { get; set; }
-       // public int MakeId { get; set; }
+
         public string Name { get; set; }
         public string Abrv { get; set; }
-        //public Make_ID MakeId { get; set; }
-
-        //public ICollection<VehicleMake> vehicleMakes { get; set; }
 
         public int MakeId { get; set; }
-        //[Column("FK_Vehicle_Make")]
-        //public int VehicleMake { get; set; }
+
 
     }
 }
