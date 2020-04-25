@@ -195,3 +195,8 @@ https://www.nuget.org/packages/X.PagedList.Mvc.Core/
 https://www.youtube.com/watch?v=LpT0KL2bOAM
 
 https://www.youtube.com/watch?v=LpT0KL2bOAM
+
+
+
+#
+https://www.mikesdotnetting.com/article/315/viewmodels-and-automapper-in-razor-pages
